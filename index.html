@@ -2,52 +2,105 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>DF Service Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DF Service Tech — Home</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <header>
-    <img src="logo2.png" class="logo-img">
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Servizi</a>
-      <a href="#">Contatti</a>
-    </nav>
-    
-  </header>
+<!-- NAVBAR -->
+<header>
+
+  <img src="logo2.png" class="logo-img" alt="DF Service Tech">
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="servizi.html">Servizi</a>
+    <a href="contatti.html">Contatti</a>
+    <a href="contatti.html">Richiedi info</a>
+  </nav>
+
+</header>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-text">
-      <h1>Service Tech Solutions</h1>
-      <p>Innovazione, tecnologia e affidabilità per il tuo business</p>
-      <button>Contattaci</button>
+      <h1>Service Tech<br><em>Solutions</em></h1>
+      <p>Innovazione, tecnologia e affidabilità per il tuo business. Soluzioni su misura per ogni sfida industriale e digitale.</p>
+      <div class="hero-actions">
+        <a href="servizi.html" class="btn-primary">Scopri i servizi</a>
+        <a href="contatti.html" class="btn-ghost">Contattaci</a>
+      </div>
     </div>
+
+
   </section>
 
   <!-- SERVIZI -->
   <section class="services">
-    <h2>I nostri servizi</h2>
+    <div class="services-header fade-up">
+      <div>
+        <div class="section-label">Cosa facciamo</div>
+        <h2>I nostri<br>servizi</h2>
+      </div>
+      <p>Offriamo soluzioni complete e integrate per supportare la crescita e l'efficienza della tua azienda.</p>
+    </div>
 
     <div class="cards">
-      <div class="card">
+      <div class="card fade-up">
+        <span class="card-icon">⚙️</span>
         <h3>Automazione</h3>
-        <p>Soluzioni intelligenti per ottimizzare i processi</p>
+        <p>Soluzioni intelligenti per ottimizzare i processi produttivi e ridurre i costi operativi attraverso tecnologie avanzate di automazione industriale.</p>
+        <a href="servizi.html" class="card-link">Approfondisci →</a>
       </div>
 
-      <div class="card">
+      <div class="card fade-up">
+        <span class="card-icon">💻</span>
         <h3>Software</h3>
-        <p>Sviluppo su misura per ogni esigenza</p>
+        <p>Sviluppo software su misura per ogni esigenza aziendale. Applicazioni gestionali, ERP, portali web e sistemi integrati costruiti attorno ai tuoi processi.</p>
+        <a href="servizi.html" class="card-link">Approfondisci →</a>
       </div>
 
-      <div class="card">
+      <div class="card fade-up">
+        <span class="card-icon">🛠️</span>
         <h3>Assistenza</h3>
-        <p>Supporto tecnico rapido ed efficiente</p>
+        <p>Supporto tecnico rapido ed efficiente. Team dedicato disponibile per garantire la continuità operativa dei tuoi sistemi, 7 giorni su 7.</p>
+        <a href="servizi.html" class="card-link">Approfondisci →</a>
       </div>
     </div>
   </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">     
+      <div class="footer-col">
+        <p><br><br>
+          <a href="mailto:info@dfservicetech.it">info@dfservicetech.it</a><br><br>
+          <a href="tel:+39011000000">+39 011 000 0000</a>
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 DF Service Tech S.r.l. — P.IVA 00000000000</span>
+      <div style="display:flex; gap:24px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>

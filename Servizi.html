@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DF Service Tech — Servizi</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── HERO SERVIZI (stesso stile hero index) ── */
+    .sv-hero {
+      min-height: 72vh;
+      display: flex;
+      align-items: center;
+      padding: 0 80px;
+      background: linear-gradient(to right, #111, #333);
+      position: relative;
+      overflow: hidden;
+    }
+    .sv-hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(139,0,0,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .sv-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--crimson), transparent);
+    }
+    .sv-hero-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    .sv-hero-left { max-width: 620px; animation: fadeUp 0.9s ease both; }
+    .sv-hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sv-hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--crimson);
+    }
+    .sv-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 78px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.0;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+    .sv-hero h1 em { color: var(--crimson); font-style: italic; }
+    .sv-hero p {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+      max-width: 480px;
+      margin-bottom: 36px;
+    }
+    .sv-hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 240px;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+    .sv-quick-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      border: 1px solid rgba(255,255,255,0.07);
+      color: #aaa;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      background: rgba(255,255,255,0.02);
+    }
+    .sv-quick-link:hover {
+      background: rgba(139,0,0,0.12);
+      border-color: rgba(139,0,0,0.3);
+      color: var(--white);
+      padding-left: 30px;
+    }
+    .sv-quick-link span { color: var(--crimson); font-size: 16px; }
+
+    /* ── INTRO STRIP ── */
+    .sv-intro {
+      background: var(--white);
+      padding: 60px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      gap: 60px;
+    }
+    .sv-intro h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+    .sv-intro p {
+      font-size: 14px;
+      color: #777;
+      line-height: 1.85;
+      font-weight: 300;
+      max-width: 480px;
+    }
+    .sv-intro-line {
+      width: 1px;
+      height: 60px;
+      background: #ddd;
+      flex-shrink: 0;
+    }
+
+    /* ── BANNER SERVIZI (alternati chiaro/scuro) ── */
+    .sv-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 440px;
+    }
+    .sv-banner.reverse { direction: rtl; }
+    .sv-banner.reverse > * { direction: ltr; }
+
+    /* LATO VISIVO */
+    .sv-visual {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
+    }
+    .sv-visual.v-light { background: #ececec; }
+    .sv-visual.v-red   { background: #120000; }
+
+    .sv-visual-icon {
+      font-size: 110px;
+      opacity: 0.1;
+      position: absolute;
+      transition: all 0.6s ease;
+      user-select: none;
+    }
+    .sv-banner:hover .sv-visual-icon { opacity: 0.2; transform: scale(1.08) rotate(-4deg); }
+
+    .sv-visual-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 180px;
+      font-weight: 700;
+      color: var(--crimson);
+      opacity: 0.07;
+      position: absolute;
+      bottom: -20px; right: 10px;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .sv-visual.v-light .sv-visual-num { color: #000; opacity: 0.05; }
+
+    .sv-visual-accent {
+      width: 100px; height: 100px;
+      border: 1px solid rgba(139,0,0,0.3);
+      border-radius: 50%;
+      position: absolute;
+      transition: all 0.6s ease;
+    }
+    .sv-visual.v-light .sv-visual-accent { border-color: rgba(0,0,0,0.12); }
+    .sv-banner:hover .sv-visual-accent { width: 150px; height: 150px; }
+
+    .sv-divider {
+      position: absolute;
+      top: 0; bottom: 0; right: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--crimson), transparent);
+      opacity: 0.35;
+    }
+    .sv-banner.reverse .sv-divider { right: auto; left: 0; }
+    .sv-visual.v-light .sv-divider { opacity: 0.2; }
+
+    /* LATO CONTENUTO */
+    .sv-content {
+      background: var(--white);
+      padding: 64px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .sv-content.c-light { background: var(--light); }
+
+    /* linea rossa che cresce */
+    .sv-content::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 0;
+      background: var(--crimson);
+      transition: height 0.45s ease;
+    }
+    .sv-banner:hover .sv-content::before { height: 100%; }
+
+    .sv-service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--crimson);
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+    .sv-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .sv-content p {
+      font-size: 14px;
+      color: #777;
+      line-height: 1.85;
+      font-weight: 300;
+      max-width: 400px;
+      margin-bottom: 28px;
+    }
+    .sv-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .sv-pill {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1px solid #ddd;
+      color: #666;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .c-light .sv-pill { border-color: #ccc; }
+    .sv-banner:hover .sv-pill {
+      border-color: var(--crimson);
+      color: var(--crimson);
+    }
+
+    /* pill speciale "Su progetto" */
+    .sv-pill.pill-cta {
+      border-color: var(--crimson);
+      color: var(--crimson);
+      background: rgba(139,0,0,0.04);
+    }
+
+    /* ── SEZIONE PROCESSO (stesso look services index) ── */
+    .sv-process {
+      padding: 120px 80px;
+      background: var(--dark);
+    }
+    .sv-process-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 70px;
+    }
+    .sv-process-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 54px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.05;
+    }
+    .sv-process-header p {
+      max-width: 300px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .sv-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: #1c1c1c;
+    }
+    .sv-step {
+      background: var(--dark);
+      padding: 48px 36px;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+    .sv-step:hover { background: #121212; }
+    .sv-step-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--crimson);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .sv-step:hover .sv-step-bar { transform: scaleX(1); }
+    .sv-step-n {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 60px;
+    font-weight: 700;
+    color: #a4161a; /* rosso più acceso */
+    opacity: 0.18;
+    line-height: 1;
+    margin-bottom: 24px;
+    transition: opacity 0.3s;
+  }
+    
+    .sv-step:hover .sv-step-n { opacity: 0.45; }
+    .sv-step h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .sv-step p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .sv-hero { padding: 0 40px; min-height: 60vh; }
+      .sv-hero h1 { font-size: 56px; }
+      .sv-hero-right { display: none; }
+      .sv-intro { padding: 50px 40px; flex-direction: column; align-items: flex-start; }
+      .sv-intro-line { display: none; }
+      .sv-banner { grid-template-columns: 1fr; min-height: auto; }
+      .sv-banner.reverse { direction: ltr; }
+      .sv-visual { min-height: 240px; }
+      .sv-content { padding: 48px 40px; }
+      .sv-process { padding: 80px 40px; }
+      .sv-process-header { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .sv-steps { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .sv-hero { padding: 80px 24px; min-height: auto; }
+      .sv-hero h1 { font-size: 44px; }
+      .sv-intro { padding: 40px 24px; }
+      .sv-content { padding: 40px 28px; }
+      .sv-content h3 { font-size: 34px; }
+      .sv-steps { grid-template-columns: 1fr; }
+      .sv-process { padding: 60px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <img src="logo2.png" class="logo-img" alt="DF Service Tech">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="servizi.html" class="active">Servizi</a>
+      <a href="contatti.html">Contatti</a>
+      <a href="contatti.html" class="nav-cta">Richiedi info</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+ <section class="sv-hero">
+  <div class="sv-hero-inner">
+    <div class="sv-hero-left">
+      <div class="sv-hero-eyebrow">Cosa facciamo</div>
+
+      <!-- TESTO IN BIANCO -->
+      <h1>
+        I nostri<br>
+        <span style="color:var(--white); font-style:normal;">Servizi</span>
+      </h1>
+
+      <p>
+        Soluzioni tecnologiche concrete per l'industria:
+        dalla progettazione elettrica all'automazione,
+        fino all'implementazione di sistemi di visione industriale
+        e supporto tecnico continuativo.
+      </p>
+
+      <div class="hero-actions">
+        <a href="contatti.html" class="btn-primary">
+          Parliamo del tuo progetto
+        </a>
+
+        <a href="#servizi" class="btn-ghost">
+          Scopri tutti
+        </a>
+      </div>
+    </div>
+
+    <div class="sv-hero-right">
+      <a href="#quadri" class="sv-quick-link">
+        Quadri & Armadi elettrici <span>→</span>
+      </a>
+
+      <a href="#plc" class="sv-quick-link">
+        Automazione PLC <span>→</span>
+      </a>
+
+      <a href="#visione" class="sv-quick-link">
+        Sistemi di visione <span>→</span>
+      </a>
+
+      <a href="#assistenza" class="sv-quick-link">
+        Assistenza tecnica <span>→</span>
+      </a>
+
+      <a href="#consulenza" class="sv-quick-link">
+        Consulenza IT <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+  <!-- INTRO STRIP -->
+  <div class="sv-intro fade-up">
+    <h2>Competenza<br>certificata</h2>
+    <div class="sv-intro-line"></div>
+    <p>Ogni progetto parte dall'ascolto. Progettiamo soluzioni reali — impianti, automazioni, software — calibrate sulle tue esigenze, non su modelli preconfezionati. Il risultato è tecnologia che funziona davvero, ogni giorno.</p>
+  </div>
+
+  <!-- BANNER 01 — Quadri & Armadi -->
+  <div id="quadri" class="sv-banner fade-up">
+    <div class="sv-visual">
+      <div class="sv-visual-accent"></div>
+      <div class="sv-visual-icon">🔌</div>
+      <div class="sv-visual-num">01</div>
+      <div class="sv-divider"></div>
+    </div>
+    <div class="sv-content">
+      <div class="sv-service-num">01 — Elettrico</div>
+      <h3>Quadri &<br>Armadi elettrici</h3>
+      <p>Progettazione e costruzione di quadri di distribuzione, quadri di comando e armadi elettrici industriali. Realizzati secondo normativa, certificati e pronti per ogni ambiente produttivo.</p>
+      <div class="sv-pills">
+        <span class="sv-pill">Quadri di distribuzione</span>
+        <span class="sv-pill">Armadi industriali</span>
+        <span class="sv-pill">Quadri di comando</span>
+        <span class="sv-pill">Certificati CEI</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANNER 02 — PLC (reverse, sfondo chiaro) -->
+  <div id="plc" class="sv-banner reverse fade-up">
+    <div class="sv-visual v-light">
+      <div class="sv-visual-accent"></div>
+      <div class="sv-visual-icon">⚙️</div>
+      <div class="sv-visual-num">02</div>
+      <div class="sv-divider"></div>
+    </div>
+    <div class="sv-content c-light">
+      <div class="sv-service-num">02 — Automazione</div>
+      <h3>Automazione<br>PLC</h3>
+      <p>Programmazione e integrazione di sistemi PLC per l'automazione di macchine e linee produttive. Ogni soluzione viene studiata sul campo insieme al cliente per garantire continuità e affidabilità.</p>
+      <div class="sv-pills">
+        <span class="sv-pill">Programmazione PLC</span>
+        <span class="sv-pill">SCADA & HMI</span>
+        <span class="sv-pill">Retrofit impianti</span>
+        <span class="sv-pill pill-cta">Su progetto →</span>
+      </div>
+    </div>
+  </div>
+ 
+<!-- BANNER 03 — Visione Industriale -->
+<div id="visione" class="sv-banner fade-up">
+
+  <div class="sv-visual">
+    <div class="sv-visual-accent"></div>
+    <div class="sv-visual-icon">📷</div>
+    <div class="sv-visual-num">03</div>
+    <div class="sv-divider"></div>
+  </div>
+
+  <div class="sv-content">
+    <div class="sv-service-num">03 — Visione</div>
+
+    <h3>
+      Sistemi di<br>
+      visione industriale
+    </h3>
+
+    <p>
+      Implementazione di sistemi di visione per controllo qualità,
+      riconoscimento componenti, lettura codici e automazione
+      dei processi produttivi. Soluzioni integrate e personalizzate
+      per migliorare precisione, velocità e affidabilità.
+    </p>
+
+    <div class="sv-pills">
+      <span class="sv-pill">Controllo qualità</span>
+      <span class="sv-pill">Machine Vision</span>
+      <span class="sv-pill">Telecamere industriali</span>
+      <span class="sv-pill">Integrazione linee</span>
+    </div>
+  </div>
+</div>
+  <!-- BANNER 04 — Assistenza (reverse, sfondo chiaro) -->
+  <div id="assistenza" class="sv-banner reverse fade-up">
+    <div class="sv-visual v-light">
+      <div class="sv-visual-accent"></div>
+      <div class="sv-visual-icon">🛠️</div>
+      <div class="sv-visual-num">04</div>
+      <div class="sv-divider"></div>
+    </div>
+    <div class="sv-content c-light">
+      <div class="sv-service-num">04 — Supporto</div>
+      <h3>Assistenza<br>tecnica</h3>
+      <p>Interventi rapidi in remoto o in loco per garantire la continuità operativa dei tuoi sistemi. SLA definiti, ticket tracciabili, nessuna sorpresa.</p>
+      <div class="sv-pills">
+        <span class="sv-pill">Help desk</span>
+        <span class="sv-pill">On-site</span>
+        <span class="sv-pill">Manutenzione programmata</span>
+        <span class="sv-pill">SLA garantito</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANNER 05 — Consulenza IT -->
+  <div id="consulenza" class="sv-banner fade-up">
+    <div class="sv-visual v-red">
+      <div class="sv-visual-accent" style="border-color:rgba(139,0,0,0.5);"></div>
+      <div class="sv-visual-icon">📡</div>
+      <div class="sv-visual-num">05</div>
+      <div class="sv-divider"></div>
+    </div>
+    <div class="sv-content">
+      <div class="sv-service-num">05 — Strategia</div>
+      <h3>Consulenza<br>IT</h3>
+      <p>Analisi dell'infrastruttura tecnologica, roadmap digitale e supporto nelle scelte più critiche. Soluzioni calibrate sul tuo budget e sui tuoi obiettivi, definite insieme in fase di progetto.</p>
+      <div class="sv-pills">
+        <span class="sv-pill">Assessment IT</span>
+        <span class="sv-pill">Cloud & Cybersecurity</span>
+        <span class="sv-pill">Reti aziendali</span>
+        <span class="sv-pill pill-cta">Su progetto →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESSO -->
+  <section class="sv-process">
+    <div class="sv-process-header fade-up">
+      <h2>Come<br>lavoriamo</h2>
+      <p>Un metodo chiaro in 4 fasi per garantire risultati concreti e tempi rispettati.</p>
+    </div>
+    <div class="sv-steps">
+      <div class="sv-step fade-up">
+        <div class="sv-step-bar"></div>
+        <div class="sv-step-n">01</div>
+        <h4>Analisi</h4>
+        <p>Ascoltiamo le esigenze e analizziamo il contesto. Nessuna soluzione preconfezionata.</p>
+      </div>
+      <div class="sv-step fade-up">
+        <div class="sv-step-bar"></div>
+        <div class="sv-step-n">02</div>
+        <h4>Progettazione</h4>
+        <p>Definiamo architettura, tempi e costi con una roadmap chiara e verificabile.</p>
+      </div>
+      <div class="sv-step fade-up">
+        <div class="sv-step-bar"></div>
+        <div class="sv-step-n">03</div>
+        <h4>Realizzazione</h4>
+        <p>Implementiamo la soluzione con controllo qualità continuo e feedback rapido.</p>
+      </div>
+      <div class="sv-step fade-up">
+        <div class="sv-step-bar"></div>
+        <div class="sv-step-n">04</div>
+        <h4>Supporto</h4>
+        <p>Consegna, formazione e assistenza post-intervento inclusi nel servizio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+      <div class="footer-col">
+        <p><br><br>
+          <a href="mailto:info@dfservicetech.it">info@dfservicetech.it</a><br><br>
+          <a href="tel:+39011000000">+39 011 000 0000</a>
+        </p>
+      </div>
+    <div class="footer-bottom">
+      <span>© 2025 DF Service Tech S.r.l. — P.IVA 00000000000</span>
+      <div style="display:flex; gap:24px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

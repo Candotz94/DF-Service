@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DF Service Tech — Contatti</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0b0d;
+      --panel:#121216;
+      --panel-2:#18181d;
+      --white:#f5f5f5;
+      --text:#a6a6ad;
+      --line:rgba(255,255,255,0.08);
+      --crimson:#c1121f;
+      --radius:28px;
+      --shadow:0 30px 80px rgba(0,0,0,0.35);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--white);
+      font-family:'Inter',sans-serif;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+      radial-gradient(circle at top left, rgba(193,18,31,0.10), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(193,18,31,0.06), transparent 35%);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    header{
+      width:100%;
+      padding:28px 7%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:1000;
+      backdrop-filter:blur(18px);
+      background:rgba(8,8,10,0.75);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+
+    .logo-img{
+      height:42px;
+      object-fit:contain;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:38px;
+    }
+
+    nav a{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      color:rgba(255,255,255,0.72);
+      transition:0.3s;
+      position:relative;
+    }
+
+    nav a:hover,
+    nav a.active{
+      color:var(--white);
+    }
+
+    nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-10px;
+      width:0;
+      height:1px;
+      background:var(--crimson);
+      transition:0.35s;
+    }
+
+    nav a:hover::after,
+    nav a.active::after{
+      width:100%;
+    }
+
+    .nav-cta{
+      border:1px solid rgba(255,255,255,0.14);
+      padding:14px 26px;
+      border-radius:100px;
+      transition:0.35s;
+    }
+
+    .nav-cta:hover{
+      border-color:var(--crimson);
+      background:var(--crimson);
+    }
+
+    .page-hero{
+      min-height:70vh;
+      padding:180px 7% 120px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      position:relative;
+    }
+
+    .section-label{
+      color:var(--crimson);
+      font-size:11px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      margin-bottom:30px;
+      font-weight:700;
+    }
+
+    .page-hero h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(64px,9vw,120px);
+      line-height:0.92;
+      font-weight:600;
+      margin-bottom:28px;
+      max-width:900px;
+    }
+
+    .page-hero p{
+      max-width:700px;
+      font-size:17px;
+      line-height:1.9;
+      color:var(--text);
+    }
+
+    .contact-section{
+      padding:40px 7% 140px;
+      display:grid;
+      grid-template-columns:0.95fr 1.05fr;
+      gap:80px;
+      align-items:start;
+    }
+
+    .contact-info h2{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(50px,6vw,84px);
+      line-height:0.95;
+      margin-bottom:28px;
+      font-weight:600;
+    }
+
+    .contact-info p{
+      color:var(--text);
+      font-size:16px;
+      line-height:1.9;
+      margin-bottom:48px;
+      max-width:520px;
+    }
+
+    .contact-details{
+      display:flex;
+      flex-direction:column;
+      gap:28px;
+    }
+
+    .contact-detail{
+      display:flex;
+      align-items:flex-start;
+      gap:20px;
+      padding:26px 28px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.02);
+      border-radius:24px;
+      transition:0.35s;
+    }
+
+    .contact-detail:hover{
+      transform:translateY(-4px);
+      border-color:rgba(193,18,31,0.3);
+      background:rgba(255,255,255,0.04);
+    }
+
+    .detail-icon{
+      width:56px;
+      height:56px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(193,18,31,0.12);
+      font-size:22px;
+      flex-shrink:0;
+    }
+
+    .detail-label{
+      font-size:11px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:var(--crimson);
+      margin-bottom:10px;
+      font-weight:700;
+    }
+
+    .detail-value{
+      color:var(--white);
+      line-height:1.8;
+      font-size:15px;
+    }
+
+    .contact-form-wrapper{
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:var(--radius);
+      padding:56px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .contact-form-wrapper::before{
+      content:"";
+      position:absolute;
+      top:-120px;
+      right:-120px;
+      width:260px;
+      height:260px;
+      background:rgba(193,18,31,0.08);
+      border-radius:50%;
+      filter:blur(10px);
+    }
+
+    .contact-form-wrapper h3{
+      font-family:'Cormorant Garamond',serif;
+      font-size:48px;
+      margin-bottom:40px;
+      font-weight:600;
+      position:relative;
+      z-index:2;
+    }
+
+    .form-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+    }
+
+    .form-group{
+      margin-bottom:24px;
+      position:relative;
+      z-index:2;
+    }
+
+    .form-group label{
+      display:block;
+      margin-bottom:12px;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      color:rgba(255,255,255,0.68);
+      font-weight:600;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select{
+      width:100%;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:18px 20px;
+      color:var(--white);
+      font-size:15px;
+      font-family:'Inter',sans-serif;
+      outline:none;
+      transition:0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus{
+      border-color:rgba(193,18,31,0.55);
+      background:rgba(255,255,255,0.05);
+      box-shadow:0 0 0 4px rgba(193,18,31,0.08);
+    }
+
+    .form-group textarea{
+      min-height:170px;
+      resize:vertical;
+    }
+
+    .btn-primary{
+      border:none;
+      background:var(--crimson);
+      color:#fff;
+      padding:18px 34px;
+      border-radius:100px;
+      cursor:pointer;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-weight:700;
+      transition:0.35s;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-3px);
+      background:#d62828;
+      box-shadow:0 14px 40px rgba(193,18,31,0.35);
+    }
+
+    .form-note{
+      margin-top:24px;
+      font-size:13px;
+      line-height:1.8;
+      color:rgba(255,255,255,0.48);
+      max-width:520px;
+    }
+
+    .form-note a{
+      color:var(--crimson);
+    }
+
+    #success-msg{
+      display:none;
+      margin-top:28px;
+      padding:20px 24px;
+      background:rgba(46,125,50,0.12);
+      border:1px solid rgba(46,125,50,0.3);
+      border-radius:18px;
+      color:#8ad88f;
+      font-size:14px;
+    }
+
+    .map-section{
+      padding:0 7% 140px;
+    }
+
+    .map-overlay::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      backdrop-filter:blur(2px);
+    }
+
+    .map-overlay > *{
+      position:relative;
+      z-index:2;
+    }
+
+    .map-overlay p{
+      color:rgba(255,255,255,0.8);
+      margin-top:6px;
+    }
+
+    .map-overlay a{
+      margin-top:24px;
+      border:1px solid rgba(193,18,31,0.45);
+      padding:14px 28px;
+      border-radius:100px;
+      color:#fff;
+      font-size:11px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      transition:0.35s;
+    }
+
+    .map-overlay a:hover{
+      background:var(--crimson);
+      border-color:var(--crimson);
+    }
+
+    footer{
+      padding:120px 7% 60px;
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:50px;
+      margin-bottom:70px;
+    }
+
+    .footer-logo{
+      height:42px;
+      margin-bottom:26px;
+    }
+
+    .footer-brand p{
+      color:var(--text);
+      line-height:1.9;
+      max-width:420px;
+    }
+
+    .footer-col h4{
+      margin-bottom:24px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      color:var(--white);
+    }
+
+    .footer-col a,
+    .footer-col p{
+      display:block;
+      margin-bottom:16px;
+      color:var(--text);
+      line-height:1.8;
+      transition:0.3s;
+    }
+
+    .footer-col a:hover{
+      color:var(--white);
+    }
+
+    .footer-bottom{
+      padding-top:34px;
+      border-top:1px solid rgba(255,255,255,0.05);
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,0.42);
+      font-size:13px;
+    }
+
+    .fade-up{
+      opacity:0;
+      transform:translateY(40px);
+      transition:0.8s ease;
+    }
+
+    .fade-up.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media(max-width:1100px){
+
+      .contact-section{
+        grid-template-columns:1fr;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media(max-width:760px){
+
+      header{
+        padding:22px 6%;
+      }
+
+      nav{
+        gap:18px;
+      }
+
+      nav a:not(.nav-cta){
+        display:none;
+      }
+
+      .page-hero{
+        padding:150px 6% 90px;
+      }
+
+      .contact-section{
+        padding:0 6% 100px;
+      }
+
+      .contact-form-wrapper{
+        padding:34px 26px;
+      }
+
+      .form-row{
+        grid-template-columns:1fr;
+      }
+
+      .map-section{
+        padding:0 6% 100px;
+      }
+
+      .map-overlay{
+        height:400px;
+      }
+
+      footer{
+        padding:90px 6% 50px;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+    } 
+  </style>
+</head>
+<body>
+ <!-- NAVBAR -->
+<header>
+
+  <img src="logo2.png" class="logo-img" alt="DF Service Tech">
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="servizi.html">Servizi</a>
+    <a href="contatti.html">Contatti</a>
+    <a href="contatti.html" class="nav-cta">Richiedi info</a>
+  </nav>
+
+</header>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+
+    <div class="contact-info fade-up">
+
+      <h2>Come<br>raggiungerci</h2>
+
+      <p>
+        Siamo in Piemonte, al servizio di aziende in tutto il Nord-Ovest italiano.
+        Operiamo anche da remoto in tutta Italia.
+      </p>
+
+      <div class="contact-details">
+
+        <div class="contact-detail">
+          <div class="detail-icon">📞</div>
+
+          <div>
+            <div class="detail-label">Telefono</div>
+
+            <div class="detail-value">
+              <a href="tel:+39011000000">
+                +39 011 000 0000
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="detail-icon">✉️</div>
+
+          <div>
+            <div class="detail-label">Email</div>
+
+            <div class="detail-value">
+              <a href="mailto:info@dfservicetech.it">
+                info@dfservicetech.it
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="detail-icon">🕐</div>
+
+          <div>
+            <div class="detail-label">Orari</div>
+
+            <div class="detail-value">
+              Lun – Ven: 8:30 – 18:00<br>
+              Sab: 9:00 – 13:00
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="contact-form-wrapper fade-up">
+
+      <h3>Inviaci un messaggio</h3>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" placeholder="Mario">
+        </div>
+
+        <div class="form-group">
+          <label for="cognome">Cognome</label>
+          <input type="text" id="cognome" placeholder="Rossi">
+        </div>
+
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="mario.rossi@azienda.it">
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Telefono</label>
+          <input type="tel" id="telefono" placeholder="+39 ...">
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="azienda">Azienda</label>
+        <input type="text" id="azienda" placeholder="Nome azienda">
+      </div>
+
+      <div class="form-group">
+        <label for="servizio">Servizio di interesse</label>
+
+        <select id="servizio">
+          <option value="" disabled selected>Seleziona un servizio</option>
+          <option>Automazione industriale</option>
+          <option>Sviluppo software</option>
+          <option>Assistenza tecnica</option>
+          <option>Consulenza IT</option>
+          <option>Impianti & Cablaggio</option>
+          <option>Data & Analytics</option>
+          <option>Altro</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="messaggio">Messaggio</label>
+
+        <textarea
+          id="messaggio"
+          placeholder="Descrivi brevemente il tuo progetto o la tua esigenza…"
+        ></textarea>
+      </div>
+
+      <div class="form-submit">
+        <button class="btn-primary" onclick="handleSubmit(event)">
+          Invia richiesta
+        </button>
+      </div>
+
+      <p class="form-note">
+        Inviando il modulo accetti la nostra
+        <a href="#">Privacy Policy</a>.
+        I tuoi dati non verranno ceduti a terzi.
+      </p>
+
+      <div id="success-msg">
+        ✓ Messaggio inviato con successo!
+        Ti risponderemo entro 24 ore.
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+
+        <img src="logo2.png" class="footer-logo" alt="DF Service Tech">
+
+        <p>
+          DF Service Tech è il partner tecnologico per le imprese che vogliono
+          innovare, crescere e restare competitive in un mercato in continua evoluzione.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigazione</h4>
+
+        <a href="index.html">Home</a>
+        <a href="servizi.html">Servizi</a>
+        <a href="contatti.html">Contatti</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Servizi</h4>
+
+        <a href="servizi.html">Automazione industriale</a>
+        <a href="servizi.html">Sviluppo software</a>
+        <a href="servizi.html">Assistenza tecnica</a>
+        <a href="servizi.html">Consulenza IT</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contatti</h4>
+
+        <p>
+          Torino, Italia<br><br>
+
+          <a href="mailto:info@dfservicetech.it">
+            info@dfservicetech.it
+          </a>
+
+          <br><br>
+
+          <a href="tel:+39011000000">
+            +39 011 000 0000
+          </a>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2025 DF Service Tech S.r.l. — P.IVA 00000000000
+      </span>
+
+      <div style="display:flex; gap:24px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+
+    </div>
+
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => {
+      observer.observe(el);
+    });
+
+    function handleSubmit(e){
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if(!nome || !email){
+        alert('Per favore compila almeno nome e email.');
+        return;
+      }
+
+      document.getElementById('success-msg').style.display = 'block';
+
+      const btn = document.querySelector('.btn-primary');
+
+      btn.textContent = 'Inviato ✓';
+      btn.style.background = '#2e7d32';
+    }
+  </script>
+
+</body>
+</html>
