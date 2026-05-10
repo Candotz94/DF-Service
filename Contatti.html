@@ -7,7 +7,6 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -15,11 +14,10 @@
       --panel:#121216;
       --panel-2:#18181d;
       --white:#f5f5f5;
-      --text:#a6a6ad;
-      --line:rgba(255,255,255,0.08);
-      --crimson:#c1121f;
+      --text:#a6a6ad; 
       --radius:28px;
       --shadow:0 30px 80px rgba(0,0,0,0.35);
+       --crimson:#c1121f; 
     }
 
     *{
@@ -459,17 +457,20 @@
       transform:translateY(0);
     }
 
-    @media(max-width:1100px){
+.contact-section{
+  padding-top: 140px;
+}
 
-      .contact-section{
-        grid-template-columns:1fr;
-      }
+@media (max-width: 1100px){
+  .contact-section{
+    padding-top: 190px;
+    grid-template-columns: 1fr;
+  }
 
-      .footer-grid{
-        grid-template-columns:1fr 1fr;
-      }
-    }
-
+  .footer-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+}
     @media(max-width:760px){
 
       header{
@@ -527,7 +528,7 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="Servizi.html">Servizi</a>
-    <a href="Contatti.html">Contatti</a>
+    <a href="Contatti.html" class="active">Contatti</a>
     <a href="Contatti.html" class="nav-cta">Richiedi info</a>
   </nav>
 
